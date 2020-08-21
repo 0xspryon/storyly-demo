@@ -1,20 +1,25 @@
 pipeline {
-    agent any
-
+    agent {
+        docker {
+            image 'cypress/base:12.16.1'
+            args '-p 3000:3000'
+        }
+    }
     stages {
+        stage('Install Dependencies') {
+            steps {
+                sh 'npm ci'
+                sh 'npm run cy:verify'
+            }
+        }
         stage('Build') {
             steps {
-                echo 'Building..'
+                sh 'npm run build'
             }
         }
         stage('Test') {
             steps {
-                echo 'Testing..'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying....'
+                sh 'npm run ci:cy-run'
             }
         }
     }
