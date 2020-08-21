@@ -9,7 +9,7 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 sh 'npm ci'
-                sh 'npm run cy:verify'
+                // sh 'npm run cy:verify'
             }
         }
         stage('Build') {
@@ -19,7 +19,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh 'npm run ci:cy-run'
+                sh 'npm run e2e dashboard-e2e'
             }
         }
     }
