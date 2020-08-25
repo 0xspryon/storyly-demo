@@ -23,7 +23,9 @@ pipeline {
           /* This builds the actual image; synonymous to
            * docker build on the command line */
            steps {
-            app = docker.build("gcr.io/newsly_containers")
+             script {
+              app = docker.build("gcr.io/newsly_containers")
+             }
            }
       }
 
@@ -45,8 +47,10 @@ pipeline {
          * Second, the 'latest' tag.
          * Pushing multiple tags is cheap, as all the layers are reused. */
          steps {
-          app.push("${env.BUILD_NUMBER}")
-          app.push("latest")
+          script {
+            app.push("${env.BUILD_NUMBER}")
+            app.push("latest")
+          }
          }
     }
 
