@@ -24,7 +24,7 @@ pipeline {
            * docker build on the command line */
            steps {
              script {
-              app = docker.build("gcr.io/newsly_containers")
+              app = docker.build("gcr.io/dashboard", "./Dashboard_Dockerfile")
              }
            }
       }
