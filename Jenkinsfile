@@ -1,20 +1,19 @@
 pipeline {
     agent none
     stages {
-        stage('Build and test') {
-          agent {
-            docker {
-              image 'cypress/base:12.16.1'
-              args '-p 3000:3000'
-            }
+      stage('Build and test') {
+        agent {
+          docker {
+            image 'cypress/base:12.16.1'
+            args '-p 3000:3000'
           }
-          steps {
-              sh 'npm ci'
-              sh 'npm run e2e dashboard-e2e'
-          }
+        }
+        steps {
+            sh 'npm ci'
+            sh 'npm run e2e dashboard-e2e'
+        }
 
-        }
-        }
+      }
 
       stage('Build image Dashboard') {
           /* This builds the actual image; synonymous to
@@ -50,5 +49,6 @@ pipeline {
           }
          }
     }
+  }
 
 }
