@@ -1,0 +1,1 @@
+- https://foxutech.com/setup-jenkins-with-google-container-registry/
