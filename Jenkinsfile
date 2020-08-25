@@ -1,25 +1,21 @@
 pipeline {
-    agent {
-        docker {
-            image 'cypress/base:12.16.1'
-            args '-p 3000:3000'
-        }
-    }
+    agent none
     stages {
-        stage('Install Dependencies') {
-            steps {
-                sh 'npm ci'
-                // sh 'npm run cy:verify'
+        stage('Build and test') {
+          agent {
+            docker {
+              image 'cypress/base:12.16.1'
+              args '-p 3000:3000'
             }
+          }
+          steps {
+              sh 'npm ci'
+              sh 'npm run e2e dashboard-e2e'
+          }
 
         }
-        stage('Build') {
-            steps {
-                sh 'npm run build'
-            }
-        }
 
-      stage('Build image') {
+      stage('Build image Dashboard') {
           /* This builds the actual image; synonymous to
            * docker build on the command line */
            steps {
@@ -54,10 +50,4 @@ pipeline {
          }
     }
 
-        stage('Test') {
-            steps {
-                sh 'npm run e2e dashboard-e2e'
-            }
-        }
-    }
 }
