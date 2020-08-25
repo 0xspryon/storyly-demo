@@ -22,7 +22,9 @@ pipeline {
       stage('Build image') {
           /* This builds the actual image; synonymous to
            * docker build on the command line */
-          app = docker.build("gcr.io/newsly_containers")
+           steps {
+            app = docker.build("gcr.io/newsly_containers")
+           }
       }
 
     /*stage('Sanity check') {
@@ -42,8 +44,10 @@ pipeline {
          * First, the incremental build number from Jenkins
          * Second, the 'latest' tag.
          * Pushing multiple tags is cheap, as all the layers are reused. */
-        app.push("${env.BUILD_NUMBER}")
-        app.push("latest")
+         steps {
+          app.push("${env.BUILD_NUMBER}")
+          app.push("latest")
+         }
     }
 
         stage('Test') {
