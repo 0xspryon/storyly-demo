@@ -14,6 +14,7 @@ pipeline {
           }
 
         }
+        }
 
       stage('Build image Dashboard') {
           /* This builds the actual image; synonymous to
